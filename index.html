@@ -15,6 +15,7 @@
 		html, body {
 		  height: 100%;
 		  margin: 0;
+		  background-image: url('https://images.unsplash.com/photo-1465225314224-587cd83d322b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80');
 		}
 
 		.full-height {
@@ -58,6 +59,53 @@
 			background-color: rgb(108,133,147);
 		}
 
+		.round-border{
+			border: 2px solid black;
+			border-radius: 20px;
+		}
+
+		#NoteToGuess{
+			margin: auto;
+			/*margin-top: 25%;*/
+			width: 50%;
+			height: 50%;
+		}
+
+		.notes-upper-row, .notes-lower-row{
+			width: 80%;
+			display: flex;
+			flex-direction: horizontal;
+		}
+
+		.btn-note{
+			margin: auto;
+		}
+
+		/*Notes*/
+		.DO{
+			background-image: url("https://upload.wikimedia.org/wikipedia/commons/c/cf/Music-halfnote.png");
+		}
+		.RE{
+			background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcT9fMfqkkKHgqVUW6A_ccTph8FzKpzT6DyMMClWm-2CfzG0OFSR&usqp=CAU");			
+		}
+		.MI{
+			background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTyWTQ7tzGBE3LVL4JBCXHJFNDu0_rw33VxHMn_YGgChwH1lc0O&usqp=CAU");			
+		}
+		.FA{
+			background-image: url("https://lh3.googleusercontent.com/proxy/O1tK4AB1YN93_D2VBxmxuCeDoiXrlyqKYtxf-nvPR096eXRi9ClZ0FLLV5d6yeASkM9rcjvSUFB-UdLv5x5pZ9TWU1OeT1nlgWHd0S9zjvOBYczrZdHgzTZ8ch004Nw5Rrc3");
+		}
+		.SOL{
+			background-image: url("https://upload.wikimedia.org/wikipedia/commons/c/cf/Music-halfnote.png");
+		}
+		.LA{
+			background-image: url("https://upload.wikimedia.org/wikipedia/commons/c/cf/Music-halfnote.png");
+		}
+		.SI{
+			background-image: url("https://upload.wikimedia.org/wikipedia/commons/c/cf/Music-halfnote.png");
+		}
+
+
+
 	</style>
 
 </head>
@@ -65,28 +113,41 @@
 
 	<div class="full-height">
 
-		<div class="header main-width horizontal-align border">
+		<div class="header main-width horizontal-align">
 			<center>
 				<div class="title"> 
-					<center><strong>MonoNotes</strong></center>
+					<center><h1><strong>MonoNotes</strong></h1></center>
 				</div>
 			</center>
 		</div>
 
-		<div class="body main-width horizontal-align border">
-			<div class="game-screen main-width horizontal-align contour border">
-				<div id="boo"></div>	
+		<div class="body main-width horizontal-align">
+			<div class="game-screen main-width horizontal-align contour round-border">
+				<div id="NoteToGuess" class="RE" value="RE">
+					<center>Test</center>
+				</div>	
 			</div>
 
-			<div class="control-screen main-width horizontal-align contour border">
-				<center>buttons</center>
+			<div class="control-screen main-width horizontal-align round-border">
+				<div class="notes-upper-row horizontal-align">
+					<button class="btn btn-success btn-note" value="DO">DO</button>
+					<button class="btn btn-success btn-note" value="RE">RE</button>
+					<button class="btn btn-success btn-note" value="MI">MI</button>
+					<button class="btn btn-success btn-note" value="FA">FA</button>
+				</div>
+				<div class="notes-lower-row horizontal-align">
+					<button class="btn btn-success btn-note" value="SOL">SOL</button>
+					<button class="btn btn-success btn-note" value="LA">LA</button>
+					<button class="btn btn-success btn-note" value="SI">SI</button>
+				</div>			
+				
 			</div>
 		</div>
 	
-		<div class="footer main-width horizontal-align border">
+		<div class="footer main-width horizontal-align">
 			<center>
 				<div> 
-					<h1> <strong>Footer</strong></h1>  
+					<h1> <strong>Donations Appreciated!</strong></h1>  
 				</div>
 			</center>
 		</div>
@@ -95,53 +156,32 @@
 
 
 <script type="text/javascript">
+
+	var listOfNotes = ['DO','RE','MI','FA','SOL','LA','SI'];
+
+	// for any button click
+	$('.btn-note').click(function(e){
 	
-	VF = Vex.Flow;
+		// Get current values and selected answer
+		var currentValue = $('#NoteToGuess:first').attr('value');
+		var selectedValue = $(this).val(); 
 
-	// Create an SVG renderer and attach it to the DIV element named "boo".
-	var div = document.getElementById("boo")
-	var renderer = new VF.Renderer(div, VF.Renderer.Backends.SVG);
+		// Find if correct answer
+		if(selectedValue == currentValue){
+			// Randomly select next image and change values accordingly
+			randomIndex = Math.floor(Math.random() * listOfNotes.length);
+			$('#NoteToGuess').removeClass().addClass(listOfNotes[randomIndex]);
+			$('#NoteToGuess:first').attr('value', listOfNotes[randomIndex]);
+		}
+		else{
+			alert('Try again');
+		}
 
-	// Configure the rendering context.
-	renderer.resize(500, 500);
-	var context = renderer.getContext();
-	context.setFont("Arial", 10, "").setBackgroundFillStyle("#eed");
-
-	// Create a stave of width 400 at position 10, 40 on the canvas.
-	var stave = new VF.Stave(10, 40, 400);
-
-	// Add a clef and time signature.
-	stave.addClef("treble").addTimeSignature("4/4");
-
-	// Connect it to the rendering context and draw!
-	stave.setContext(context).draw();
-
-	var notes = [
-	  // A quarter-note C.
-	  new VF.StaveNote({clef: "treble", keys: ["c/4"], duration: "q" }),
-
-	  // A quarter-note D.
-	  new VF.StaveNote({clef: "treble", keys: ["d/4"], duration: "q" }),
-
-	  // A quarter-note rest. Note that the key (b/4) specifies the vertical
-	  // position of the rest.
-	  new VF.StaveNote({clef: "treble", keys: ["b/4"], duration: "qr" }),
-
-	  // A C-Major chord.
-	  new VF.StaveNote({clef: "treble", keys: ["c/4", "e/4", "g/4"], duration: "q" })
-	];
-
-	// Create a voice in 4/4 and add the notes from above
-	var voice = new VF.Voice({num_beats: 4,  beat_value: 4});
-	voice.addTickables(notes);
-
-	// Format and justify the notes to 400 pixels.
-	var formatter = new VF.Formatter().joinVoices([voice]).format([voice], 400);
-
-	// Render voice
-	voice.draw(context, stave);
-
-
+		// Debug
+		console.log('original:' + currentValue);
+		console.log('Now:' + listOfNotes[randomIndex]);
+		
+	});
 
 </script>
 
