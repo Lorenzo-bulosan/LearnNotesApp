@@ -107,7 +107,12 @@
 			<div class="game-screen main-width horizontal-align contour round-border">
 				<div id="NoteToGuess" value="DO">
 					<center>
-						<img id="NoteImage" src="https://github.com/Lorenzo-bulosan/LearnNotesApp/blob/master/Notes/DO_1.PNG?raw=true" width="500em" height="350em">						
+						
+						<img id="NoteImage" src="https://github.com/Lorenzo-bulosan/LearnNotesApp/blob/master/Notes/DO_1.PNG?raw=true" width="500em" height="350em">	
+						
+						<audio id="audio1" src="http://f5361a5c08a4c03f7c6f-acbeb9602bd0a56bf9c1a6bed3d8280b.r27.cf2.rackcdn.com/RightSound2%202.mp3"></audio>		
+						<audio id="audio2" src="http://f5361a5c08a4c03f7c6f-acbeb9602bd0a56bf9c1a6bed3d8280b.r27.cf2.rackcdn.com/wrongSound2.mp3" ></audio>
+			
 					</center>
 				</div>	
 			</div>
@@ -133,6 +138,9 @@
 
 <script type="text/javascript">
 
+	// EACH NOTE CAN HAVE MANY VARIATIONS
+	// e.g Add new image of a different "RE"
+	
 	var allNotes = {
 		'DO':[
 		'https://github.com/Lorenzo-bulosan/LearnNotesApp/blob/master/Notes/DO_1.PNG?raw=true',
@@ -169,6 +177,10 @@
 	var listOfNotes = Object.keys(allNotes);
 	var lengthAllNotes = listOfNotes.length;
 
+	// get audio
+	var correctAudio = $('#audio1').get(0);
+	var wrongAudio = $('#audio2').get(0);
+
 	// for any button click
 	$('.btn-note').click(function(e){
 	
@@ -179,8 +191,10 @@
 		// Find if correct answer
 		if(selectedValue == currentValue){
 
-			// Add effect
-			$('#NoteToGuess').effect("highlight", { color:'#34eb67'});
+			// Add effects and audio
+			$('#NoteToGuess').effect("highlight", { color:'#34eb67'}, 1500);
+		  	correctAudio.currentTime = 0;
+		  	correctAudio.play();
 
 			// Randomly select a note
 			var randomNoteIndex = Math.floor(Math.random() * lengthAllNotes);
@@ -190,7 +204,6 @@
 			var variationOfNote = allNotes[String(randomNote)];
 			var randomVariationIndex = Math.floor(Math.random() * variationOfNote.length);
 			var nextNote = variationOfNote[randomVariationIndex];
-			console.log(nextNote)
 
 			// change value of container and image src
 			$('#NoteToGuess:first').attr('value', randomNote);
@@ -198,6 +211,8 @@
 		}
 		else{
 			$('#NoteToGuess').effect("shake");
+		  	wrongAudio.currentTime = 0;
+		  	wrongAudio.play();
 		}
 	
 	});
