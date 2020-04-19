@@ -82,6 +82,10 @@
 			flex-direction: horizontal;
 		}
 
+		.learning-row{
+			padding-top: 2em;
+		}
+
 		.btn-note{
 			margin: auto;
 			width: 80%;
@@ -128,9 +132,16 @@
 					<button class="btn btn-success btn-note" value="SOL">SOL</button>
 					<button class="btn btn-success btn-note" value="LA">LA</button>
 					<button class="btn btn-success btn-note" value="SI">SI</button>
-				</div>			
+				</div>	
 				
 			</div>
+
+			<div class="learning-row horizontal-align">
+				<center>
+				<button class="btn btn-success" id="Treble-btn">Treble Clef</button>
+				<button class="btn btn-success" id="Bass-btn">Bass Clef</button>					
+				</center>
+			</div>	
 		</div>
 
 	</div>
@@ -140,7 +151,7 @@
 
 	// EACH NOTE CAN HAVE MANY VARIATIONS
 	// e.g Add new image of a different "RE"
-	
+
 	var allNotes = {
 		'DO':[
 		'https://github.com/Lorenzo-bulosan/LearnNotesApp/blob/master/Notes/DO_1.PNG?raw=true',
@@ -173,6 +184,9 @@
 		'https://github.com/Lorenzo-bulosan/LearnNotesApp/blob/master/Notes/SI_2.PNG?raw=true'
 		]
 	} 
+
+	var bassImage = 'https://royalschoolofmusic.es/wp-content/uploads/2019/09/Notas_en_el_pentagrama_-_Clave_de_FA.gif';
+	var trebleImage = 'https://i.pinimg.com/originals/11/11/af/1111afaa4e931deeb7565f872809be58.png';
 
 	var listOfNotes = Object.keys(allNotes);
 	var lengthAllNotes = listOfNotes.length;
@@ -214,7 +228,14 @@
 		  	wrongAudio.currentTime = 0;
 		  	wrongAudio.play();
 		}
-	
+	});
+
+	$('#Treble-btn').click(function(){
+		$('#NoteImage').attr("src",trebleImage);
+	});
+
+	$('#Bass-btn').click(function(){
+		$('#NoteImage').attr("src",bassImage);
 	});
 
 </script>
