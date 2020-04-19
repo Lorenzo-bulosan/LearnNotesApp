@@ -92,6 +92,10 @@
 			height: 80%;
 		}
 
+		#Practice-btn{
+			margin: auto;
+		}
+
 	</style>
 
 </head>
@@ -132,14 +136,15 @@
 					<button class="btn btn-success btn-note" value="SOL">SOL</button>
 					<button class="btn btn-success btn-note" value="LA">LA</button>
 					<button class="btn btn-success btn-note" value="SI">SI</button>
-				</div>	
+					<button class="btn btn-success" id="Practice-btn">Practice now!</button>
+				</div>
 				
 			</div>
 
 			<div class="learning-row horizontal-align">
 				<center>
-				<button class="btn btn-success" id="Treble-btn">Treble Clef</button>
-				<button class="btn btn-success" id="Bass-btn">Bass Clef</button>					
+				<button class="btn btn-danger" id="Treble-btn">Treble Clef</button>
+				<button class="btn btn-danger" id="Bass-btn">Bass Clef</button>					
 				</center>
 			</div>	
 		</div>
@@ -195,6 +200,9 @@
 	var correctAudio = $('#audio1').get(0);
 	var wrongAudio = $('#audio2').get(0);
 
+	// Default behaviour
+	$('#Practice-btn').hide();
+
 	// for any button click
 	$('.btn-note').click(function(e){
 	
@@ -230,13 +238,24 @@
 		}
 	});
 
+	// Show the treble and bass scale
 	$('#Treble-btn').click(function(){
 		$('#NoteImage').attr("src",trebleImage);
+		$('.btn-note').hide();
+		$('#Practice-btn').show();
 	});
 
 	$('#Bass-btn').click(function(){
 		$('#NoteImage').attr("src",bassImage);
+		$('.btn-note').hide();
+		$('#Practice-btn').show();
 	});
+
+
+	$('#Practice-btn').click(function(){
+		location.reload();
+	});
+
 
 </script>
 
