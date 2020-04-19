@@ -71,8 +71,8 @@
 
 		#NoteToGuess{
 			margin: auto;
-			width: 80%;
-			height: 50%;
+			width: 100%;
+			height: 100%;
 		}
 
 		.notes-upper-row, .notes-lower-row{
@@ -87,31 +87,6 @@
 			width: 80%;
 			height: 80%;
 		}
-
-		/*Notes*/
-		.DO{
-			background-image: url("https://upload.wikimedia.org/wikipedia/commons/c/cf/Music-halfnote.png");
-		}
-		.RE{
-			background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcT9fMfqkkKHgqVUW6A_ccTph8FzKpzT6DyMMClWm-2CfzG0OFSR&usqp=CAU");			
-		}
-		.MI{
-			background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTyWTQ7tzGBE3LVL4JBCXHJFNDu0_rw33VxHMn_YGgChwH1lc0O&usqp=CAU");			
-		}
-		.FA{
-			background-image: url("https://lh3.googleusercontent.com/proxy/O1tK4AB1YN93_D2VBxmxuCeDoiXrlyqKYtxf-nvPR096eXRi9ClZ0FLLV5d6yeASkM9rcjvSUFB-UdLv5x5pZ9TWU1OeT1nlgWHd0S9zjvOBYczrZdHgzTZ8ch004Nw5Rrc3");
-		}
-		.SOL{
-			background-image: url("https://upload.wikimedia.org/wikipedia/commons/c/cf/Music-halfnote.png");
-		}
-		.LA{
-			background-image: url("https://upload.wikimedia.org/wikipedia/commons/c/cf/Music-halfnote.png");
-		}
-		.SI{
-			background-image: url("https://upload.wikimedia.org/wikipedia/commons/c/cf/Music-halfnote.png");
-		}
-
-
 
 	</style>
 
@@ -130,8 +105,10 @@
 
 		<div class="body main-width horizontal-align">
 			<div class="game-screen main-width horizontal-align contour round-border">
-				<div id="NoteToGuess" class="RE" value="RE">
-					<center>Test</center>
+				<div id="NoteToGuess" value="DO">
+					<center>
+						<img id="NoteImage" src="https://github.com/Lorenzo-bulosan/LearnNotesApp/blob/master/Notes/DO_1.PNG?raw=true" width="500em" height="350em">						
+					</center>
 				</div>	
 			</div>
 
@@ -156,7 +133,41 @@
 
 <script type="text/javascript">
 
-	var listOfNotes = ['DO','RE','MI','FA','SOL','LA','SI'];
+	var allNotes = {
+		'DO':[
+		'https://github.com/Lorenzo-bulosan/LearnNotesApp/blob/master/Notes/DO_1.PNG?raw=true',
+		'https://github.com/Lorenzo-bulosan/LearnNotesApp/blob/master/Notes/DO_2.PNG?raw=true',
+		'https://github.com/Lorenzo-bulosan/LearnNotesApp/blob/master/Notes/DO_3.PNG?raw=true',
+		'https://github.com/Lorenzo-bulosan/LearnNotesApp/blob/master/Notes/DO_4.PNG?raw=true'
+		],
+		'RE':[
+		'https://github.com/Lorenzo-bulosan/LearnNotesApp/blob/master/Notes/RE_1.PNG?raw=true',
+		'https://github.com/Lorenzo-bulosan/LearnNotesApp/blob/master/Notes/RE_2.PNG?raw=true'
+		],
+		'MI':[
+		'https://github.com/Lorenzo-bulosan/LearnNotesApp/blob/master/Notes/MI_1.PNG?raw=true',
+		'https://github.com/Lorenzo-bulosan/LearnNotesApp/blob/master/Notes/MI_2.PNG?raw=true'
+		],
+		'FA':[
+		'https://github.com/Lorenzo-bulosan/LearnNotesApp/blob/master/Notes/FA_1.PNG?raw=true',
+		'https://github.com/Lorenzo-bulosan/LearnNotesApp/blob/master/Notes/FA_2.PNG?raw=true'
+		],
+		'SOL':[
+		'https://github.com/Lorenzo-bulosan/LearnNotesApp/blob/master/Notes/SOL_1.PNG?raw=true',
+		'https://github.com/Lorenzo-bulosan/LearnNotesApp/blob/master/Notes/SOL_2.PNG?raw=true'
+		],
+		'LA':[
+		'https://github.com/Lorenzo-bulosan/LearnNotesApp/blob/master/Notes/LA_1.PNG?raw=true',
+		'https://github.com/Lorenzo-bulosan/LearnNotesApp/blob/master/Notes/LA_2.PNG?raw=true'
+		],
+		'SI':[
+		'https://github.com/Lorenzo-bulosan/LearnNotesApp/blob/master/Notes/SI_1.PNG?raw=true',
+		'https://github.com/Lorenzo-bulosan/LearnNotesApp/blob/master/Notes/SI_2.PNG?raw=true'
+		]
+	} 
+
+	var listOfNotes = Object.keys(allNotes);
+	var lengthAllNotes = listOfNotes.length;
 
 	// for any button click
 	$('.btn-note').click(function(e){
@@ -171,19 +182,24 @@
 			// Add effect
 			$('#NoteToGuess').effect("highlight", { color:'#34eb67'});
 
-			// Randomly select next image and change values accordingly
-			randomIndex = Math.floor(Math.random() * listOfNotes.length);
-			$('#NoteToGuess').removeClass().addClass(listOfNotes[randomIndex]);
-			$('#NoteToGuess:first').attr('value', listOfNotes[randomIndex]);
+			// Randomly select a note
+			var randomNoteIndex = Math.floor(Math.random() * lengthAllNotes);
+			var randomNote = listOfNotes[randomNoteIndex];
+
+			// Randomly select a variation of that note
+			var variationOfNote = allNotes[String(randomNote)];
+			var randomVariationIndex = Math.floor(Math.random() * variationOfNote.length);
+			var nextNote = variationOfNote[randomVariationIndex];
+			console.log(nextNote)
+
+			// change value of container and image src
+			$('#NoteToGuess:first').attr('value', randomNote);
+			$('#NoteImage').attr("src",nextNote);
 		}
 		else{
 			$('#NoteToGuess').effect("shake");
 		}
-
-		// Debug
-		console.log('original:' + currentValue);
-		console.log('Now:' + listOfNotes[randomIndex]);
-		
+	
 	});
 
 </script>
