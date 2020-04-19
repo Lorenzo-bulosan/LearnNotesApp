@@ -9,18 +9,21 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<script src = "https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js">></script>
 
 	<style type="text/css">
 
-		html, body {
-		  height: 100%;
+		html, body{
+		  height: 95%;
 		  margin: 0;
-		  background-image: url('https://images.unsplash.com/photo-1465225314224-587cd83d322b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80');
+		}
+
+		body{
+			background-image: url('https://images.unsplash.com/photo-1465225314224-587cd83d322b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80');
 		}
 
 		.full-height {
 		  height: 100%;
-		  border: 2px solid red;
 		}
 
 		.border{
@@ -45,14 +48,16 @@
 
 		.footer{
 			height: 10%;
+			color: white;
 		}
 
 		.game-screen{
-			height: 80%;
+			height: 60%;
 		}
 
 		.control-screen{
 			height: 20%;
+			background-color: rgb(108,133,147);
 		}
 
 		.contour{
@@ -66,12 +71,12 @@
 
 		#NoteToGuess{
 			margin: auto;
-			/*margin-top: 25%;*/
-			width: 50%;
+			width: 80%;
 			height: 50%;
 		}
 
 		.notes-upper-row, .notes-lower-row{
+			height: 50%;
 			width: 80%;
 			display: flex;
 			flex-direction: horizontal;
@@ -79,6 +84,8 @@
 
 		.btn-note{
 			margin: auto;
+			width: 80%;
+			height: 80%;
 		}
 
 		/*Notes*/
@@ -116,7 +123,7 @@
 		<div class="header main-width horizontal-align">
 			<center>
 				<div class="title"> 
-					<center><h1><strong>MonoNotes</strong></h1></center>
+					<center><h1><strong> 🎵 MonoNotes 🎵</strong></h1></center>
 				</div>
 			</center>
 		</div>
@@ -143,14 +150,6 @@
 				
 			</div>
 		</div>
-	
-		<div class="footer main-width horizontal-align">
-			<center>
-				<div> 
-					<h1> <strong>Donations Appreciated!</strong></h1>  
-				</div>
-			</center>
-		</div>
 
 	</div>
 
@@ -168,13 +167,17 @@
 
 		// Find if correct answer
 		if(selectedValue == currentValue){
+
+			// Add effect
+			$('#NoteToGuess').effect("highlight", { color:'#34eb67'});
+
 			// Randomly select next image and change values accordingly
 			randomIndex = Math.floor(Math.random() * listOfNotes.length);
 			$('#NoteToGuess').removeClass().addClass(listOfNotes[randomIndex]);
 			$('#NoteToGuess:first').attr('value', listOfNotes[randomIndex]);
 		}
 		else{
-			alert('Try again');
+			$('#NoteToGuess').effect("shake");
 		}
 
 		// Debug
