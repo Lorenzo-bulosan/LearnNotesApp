@@ -96,6 +96,10 @@
 			margin: auto;
 		}
 
+		#Audio-btn-on{
+			margin-top: 0;
+		}
+
 	</style>
 
 </head>
@@ -114,13 +118,20 @@
 		<div class="body main-width horizontal-align">
 			<div class="game-screen main-width horizontal-align contour round-border">
 				<div id="NoteToGuess" value="DO">
-					<center>
-						
+					<center>			
 						<img id="NoteImage" src="https://github.com/Lorenzo-bulosan/LearnNotesApp/blob/master/Notes/DO_1.PNG?raw=true" width="500em" height="350em">	
 						
 						<audio id="audio1" src="http://f5361a5c08a4c03f7c6f-acbeb9602bd0a56bf9c1a6bed3d8280b.r27.cf2.rackcdn.com/RightSound2%202.mp3"></audio>		
 						<audio id="audio2" src="http://f5361a5c08a4c03f7c6f-acbeb9602bd0a56bf9c1a6bed3d8280b.r27.cf2.rackcdn.com/wrongSound2.mp3" ></audio>
-			
+
+						<div id="Sound-ON">
+							<span> SOUND ON: </span>
+							<span class="glyphicon glyphicon glyphicon-volume-up horizontal-align" id="Audio-btn-on"></span></p>
+						</div>
+						<div id="Sound-OFF">
+							<span> SOUND OFF: </span>
+							<span class="glyphicon glyphicon glyphicon-volume-off horizontal-align" id="Audio-btn-off"></span></p>
+						</div>
 					</center>
 				</div>	
 			</div>
@@ -203,6 +214,7 @@ $( document ).ready(function() {
 
 	// Default behaviour
 	$('#Practice-btn').hide();
+	$('#Sound-OFF').hide();
 
 	// for any button click
 	$('.btn-note').click(function(e){
@@ -252,9 +264,23 @@ $( document ).ready(function() {
 		$('#Practice-btn').show();
 	});
 
-
+	// Leave learning screen
 	$('#Practice-btn').click(function(){
 		location.reload();
+	});
+
+	// Audio controls
+	$('#Audio-btn-on').click(function(){
+		correctAudio.muted = true;
+		wrongAudio.muted = true;
+		$('#Sound-OFF').show();
+		$('#Sound-ON').hide();
+	});
+	$('#Audio-btn-off').click(function(){
+		correctAudio.muted = false;
+		wrongAudio.muted = false;
+		$('#Sound-OFF').hide();
+		$('#Sound-ON').show();
 	});
 
 });
